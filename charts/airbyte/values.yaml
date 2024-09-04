@@ -20,7 +20,7 @@ global:
     workloadsOptIn: false
 
   # -- The URL where Airbyte will be reached; This should match your Ingress host
-  airbyteUrl: ""
+  airbyteUrl: "https://airbyte.gcp.mejuri.com"
 
   # -- Auth configuration
   auth:
