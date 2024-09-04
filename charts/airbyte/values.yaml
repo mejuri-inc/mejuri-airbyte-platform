@@ -143,11 +143,7 @@ global:
       ## JOB_KUBE_TOLERATIONS
       # -- Node tolerations for pod assignment
       #  Any boolean values should be quoted to ensure the value is passed through as a string.
-      tolerations:
-      - key: "airbyte-prod"
-        operator: "Equal"
-        value: "jobs"
-        effect: "NoSchedule"
+      tolerations: []
 
       ## JOB_KUBE_MAIN_CONTAINER_IMAGE_PULL_SECRET
       # -- image pull secret to use for job pod
@@ -283,7 +279,8 @@ webapp:
     requests: {}
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -499,7 +496,8 @@ pod-sweeper:
     requests: {}
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -609,7 +607,8 @@ server:
     requests: {}
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for server pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -944,7 +943,8 @@ workload-launcher:
     requests: {}
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for workload launcher pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -982,7 +982,7 @@ workload-launcher:
   extraContainers: []
 
   hpa:
-    enabled: false
+    enabled: true
 
   debug:
     enabled: false
@@ -1066,7 +1066,8 @@ metrics:
     requests: {}
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for metrics-reporter pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -1120,7 +1121,8 @@ airbyte-bootloader:
   podLabels: {}
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -1322,7 +1324,8 @@ temporal:
     enabled: false
 
   # -- Node labels for temporal pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for temporal pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -1559,7 +1562,8 @@ cron:
     requests: {}
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for cron pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -1738,7 +1742,8 @@ connector-builder-server:
     port: 80
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -1792,7 +1797,8 @@ keycloak:
       type: RuntimeDefault
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -1935,7 +1941,8 @@ workload-api-server:
     level: "DEBUG"
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
@@ -2054,7 +2061,8 @@ featureflag-server:
     level: "INFO"
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
 
   # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
   tolerations: []
