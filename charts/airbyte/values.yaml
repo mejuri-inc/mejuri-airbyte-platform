@@ -20,7 +20,7 @@ global:
     workloadsOptIn: false
 
   # -- The URL where Airbyte will be reached; This should match your Ingress host
-  airbyteUrl: "https://airbyte.gcp.mejuri.com"
+  airbyteUrl: ""
 
   # -- Auth configuration
   auth:
@@ -280,10 +280,14 @@ webapp:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for webapp pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -497,10 +501,14 @@ pod-sweeper:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for pod assignment, see https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
   affinity: {}
@@ -608,10 +616,14 @@ server:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for server pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for server pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -944,10 +956,14 @@ workload-launcher:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for workload launcher pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # Affinity and anti-affinity for workload launcher pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -1067,10 +1083,14 @@ metrics:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for metrics-reporter pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for metrics-reporter pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -1122,10 +1142,14 @@ airbyte-bootloader:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
   # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   ## Bootloader resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -1323,12 +1347,16 @@ temporal:
     # -- Enable readinessProbe on the temporal
     enabled: false
 
-  # -- Node labels for temporal pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
+  # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for temporal pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for temporal pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -1425,10 +1453,15 @@ postgresql:
     # -- The order in which the hooks are executed. If weight is lower, it has higher priority
     helm.sh/hook-weight: "-1"
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for postgresql pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for postgresql pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -1563,10 +1596,14 @@ cron:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for cron pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for cron pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -1743,10 +1780,14 @@ connector-builder-server:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for webapp pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -1847,10 +1888,15 @@ keycloak-setup:
       type: RuntimeDefault
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
-  nodeSelector: {}
+  nodeSelector:
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for webapp pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -1942,10 +1988,14 @@ workload-api-server:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for webapp pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
@@ -2062,10 +2112,14 @@ featureflag-server:
 
   # -- Node labels for pod assignment, see https://kubernetes.io/docs/user-guide/node-selection/
   nodeSelector:
-    cloud.google.com/gke-nodepool: mejuri-nodepool-prod
+    cloud.google.com/gke-nodepool: airbyte-workers-nodepool-prod
 
-  # -- Tolerations for webapp pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
-  tolerations: []
+  # -- Tolerations for worker pod assignment, see https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  tolerations:
+  - key: "airbyte-prod"
+    operator: "Equal"
+    value: "workers"
+    effect: "NoSchedule"
 
   # -- Affinity and anti-affinity for webapp pod assignment, see
   # https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity
